@@ -37,6 +37,9 @@
 (defmethod write-expr :fs [depth [form x]]
   (list (indent depth) "$fs = " x ";\n"))
 
+(defmethod write-expr :import [depth [form {:keys [filename]}]]
+	(list (indent depth) "import (" filename ");\n"))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; primitives
 (defmethod write-expr :cylinder [depth [form {:keys [h r r1 r2 fa fn fs]}]]
@@ -134,6 +137,23 @@
     ~@(if (nil? paths) [] `(", paths=[["  ~(join "],[" (map #(join "," %1) paths))  "]]"))
     ~@(if (nil? convexity) [] [", convexity=" convexity])
     ");\n"))
+
+(defn point-to-string [point]
+	(str "["
+			 (nth point 0) ","
+			 (nth point 1) ","
+			 (nth point 2) "]"))
+
+(defmethod write-expr :polyhedron [depth [form {:keys [points faces]}]]
+	(concat (list (indent depth)
+			"polyhedron ("
+			"points=["
+			(join ","
+				(map (fn [p] (point-to-string p)) points))
+			"], faces=[["
+			(join "],[" (map #(join "," %1) faces))
+			"]]")
+		");\n"))
 
 (defmethod write-expr :projection [depth [form {:keys [cut]} & block]]
   (concat

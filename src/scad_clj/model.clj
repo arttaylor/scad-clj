@@ -32,6 +32,8 @@
   `(binding [*fs* ~x]
      (list ~@block)))
 
+(defn import [filename]
+	`(:import {:filename ~filename}))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; primitives
 (defn cylinder [rs h]
@@ -99,6 +101,9 @@
   ([points paths & {:keys [convexity]}]
      `(:polygon {:points ~points :paths ~paths :convexity ~convexity}))
   )
+
+(defn polyhedron [points faces]
+	`(:polyhedron {:points ~points :faces ~faces}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; projection/extrusion
