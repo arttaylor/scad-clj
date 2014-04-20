@@ -1,6 +1,6 @@
-(defproject scad-clj "0.1.0"
+(defproject scad-clj "0.1.0-AT"
   :description "OpenSCAD DSL in Clojure"
-  :url "https://github.com/farrellm/scad-clj"
+  :url "https://github.com/arttaylor/scad-clj"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.5.0"]
